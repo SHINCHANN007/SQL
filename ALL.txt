@@ -1,0 +1,912 @@
+practical 1
+
+Aim: Create MongoDB database, collection, insert records into collections, delete collections.
+Command: use TYCS_248637
+
+Command: show dbs
+
+Command: db
+
+Command: db.dropDatabase()
+
+Command: db.createCollection("test")
+
+Command: db.test.drop()
+
+Command: db.test.insertOne({name:"abc",rollno:"101"})
+
+
+Command: db.Pramod.insertMany([{name:"def",rollno:"102"},{name:"ghi",rollno:"103"}])
+
+Command: db.Pramod.find()
+
+
+---------------------------------------------------------
+practical 2
+
+
+db.employee.insertMany([
+{empid:"101",name:"eployee1",salary:50000,dept:"HR"},
+{empid:"102",name:"eployee2",salary:40000,dept:"TECH"},
+{empid:"103",name:"eployee3",salary:60000,dept:"FIN"},
+{empid:"104",name:"eployee4",salary:23000,dept:"HR"},
+{empid:"105",name:"eployee5",salary:78000,dept:"FIN"},
+{empid:"106",name:"eployee6",salary:30000,dept:"FIN"},
+{empid:"107",name:"eployee7",salary:50000,dept:"HR"},
+{empid:"108",name:"eployee8",salary:53000,dept:"TECH"},
+{empid:"109",name:"eployee9",salary:10000,dept:"TECH"},
+{empid:"110",name:"eployee10",salary:20000,dept:"HR"}
+])
+
+db.products.insertMany([
+{product_id:1,name:"Redmi",quantity:100,price:20000},
+{product_id:2,name:"Nokia 24",quantity:200,price:20000},
+{product_id:3,name:"Google Pixel 9",quantity:800,price:20000},
+{product_id:4,name:"Apple iPhone 14",quantity:200,price:20000},
+{product_id:5,name:"Apple iPhone 15",quantity:150,price:20000},
+{product_id:6,name:"Apple iPhone 16",quantity:1000,price:20000},
+{product_id:7,name:"samsung s23 plus",quantity:130,price:20000},
+{product_id:8,name:"samsung s24 plus",quantity:230,price:20000},
+{product_id:9,name:"samsung s23 ultra",quantity:590,price:20000},
+{product_id:10,name:"samsung s24 ultra",quantity:100,price:20000}
+])
+
+
+
+
+Q1. Write a MongoDB query to display documents in the collection employee
+
+Command:db.emp.find()
+
+Q2. Write a MongoDB query to display the fields emp_id, name, department and slary for all the
+documents in the collection employee
+
+Command: db.emp.find({},{empid:1,empname:1,dept:1,salary:1}
+
+Q3. Write a MongoDB query to display the field emp_id, name, department, but exclude the 
+field _id for all the documents in the collection employee
+
+Command: db.emp.find({},{_id:0})
+
+Q4. Write a MongoDB query to display all the employee which are in the “HR” department
+
+Command:db.emp.find({dept:”HR”})
+
+Q5. Write a MongoDB query to set salary of the employee to 50000 fir employees which are in 
+“HR” department
+
+Command: db.emp.updateMany({dept:"HR"},{$set:{salary:50000}})
+
+Q6. Write a MongoDB query to set price 150 for products whose quantity is greater than 50
+
+Command: db.products.updateMany({product_quantity:{$gt:50}},{$set:{price:150}})
+
+Q7. Write a MongoDB query to remove the record of any one product
+
+Command: db.products.deleteOne({product_id:1})
+
+Q8. Write a MongoDB query to rename product collection as Product_details
+
+Command: db.products.renameCollection("product_details")
+
+
+---------------------------------------------------------
+practical 3
+
+Q1.Create a sample collection orders.
+
+Customer(Name),Address(City,Country),PaymentMode(Cash,Card,NetBanking,UPI),Email,OrderTotal,
+OrderItems(ItemName,Price,Qty)
+
+Code:
+
+db.orders.insert([
+{Customer:"Prakash",
+Address:{"City":"Thane","Country":"India"},
+PaymentMode:"Card",
+Email:"abcd090@mail.in",
+OrderTotal:1000.00,
+OrderItems:[
+{"ItemName":"notebook","Price":"150.00","Qty":10},
+{"ItemName":"paper","Price":"10.00","Qty":5},
+{"ItemName":"journal","Price":"200.00","Qty":2},
+{"ItemName":"postcard","Price":"10.00","Qty":500}
+] 
+},
+{
+Customer:"Mahesh",
+Address:{"City":"mulund","Country":"India"},
+PaymentMode:"Cash",
+Email:"awcd090@mail.in",
+OrderTotal:800.00,
+OrderItems:[
+{"ItemName":"notebook","Price":"150.00","Qty":5},
+{"ItemName":"paper","Price":"10.00","Qty":5},
+{"ItemName":"postcard","Price":"10.00","Qty":500}
+] 
+},
+{
+Customer:"luvkesh",
+Address:{"City":"sion","Country":"India"},
+PaymentMode:"Card",
+Email:"ron@mail.com",
+OrderTotal:800.00,
+OrderItems:[
+{"ItemName":"notebook","Price":"150.00","Qty":5},
+{"ItemName":"postcard","Price":"10.00","Qty":00}
+] 
+}
+])
+
+Q2.Write a query to display all documents from MongoDB orders collections.
+
+Code: db.orders.find()
+
+Q3.Write a query to display the order where PaymentMode is 'Card' 
+
+Code:db.orders.find({PaymentMode:”Card”})
+
+Q4.Write a query to display the order where Country is 'India' (you can use a dot notation).
+
+Code:db.orders.find({“Address.Country”:”India”})
+
+
+Q5.Write a query to display the order where Item Name is ‘NoteBook’.
+
+Code:db.orders.find({“OrderItems.ItemName”:”notebook”})
+
+
+Q6.Write a query to display the documents where OrderTotal is greater than 500.
+
+Code: db.orders.find({"OrderTotal":{$gt:500}})
+
+
+Q7.Write a query to display the documents where OrderTotal is greater than 500 or equal to 500.
+
+Code: db.orders.find({"OrderTotal":{$gte:500}})
+
+Q8.Write a query to display the documents where OrderTotal is less than 900.
+
+Code: db.orders.find({"OrderTotal":{$lt:900}})
+
+Q9. .Write a query to display the documents where OrderTotal is less than or equal to 900.
+
+Code: db.orders.find({"OrderTotal":{$lte:900}})
+
+Q10.Write a query to display the order where PaymentMode is not 'Cash'
+
+Code: db.orders.find({"PaymentMode":{$ne:"Cash"}})
+
+Q11. Write a query to display the order where Item Name is ‘NoteBook’ or ‘Assignment Papers’ 
+or ‘pen’
+
+Code: db.orders.find({"OrderItems.ItemName":{$in:["notebook","paper","pen"]}})
+
+Q12. Write a query to display the order where Item Name is not ‘NoteBook’ or ‘Assignment 
+Papers’
+
+Code: db.orders.find({"OrderItems.ItemName":{$nin:["notebook","paper"]}})
+
+
+Q13. Write a query to display the order where city is Mumbai and Item Name is ‘NoteBook’
+
+Code:db.orders.find({$and:[{"Address.City":"Dombivli"},{"OrderItems.ItemName":"notebook"}]})
+
+Q14.Write a query to display the order where OrderTotal is 600 or price is 200
+
+Code: db.orders.find({"OrderTotal":{$in:[600,200]}})
+
+Q15. Write a query to display the order where OrderTotal is not equal to 600
+
+Code: db.orders.find({"OrderTotal":{$ne:600}})
+
+Q16. Write a query to display the order where city is not Mumbai and Item Name is not 
+‘NoteBook’
+
+Code:
+db.orders.find({$and:[{"Address.City":{$ne:"Mumbai"}},{"OrderItems.ItemName":{$ne:"notebook"}}]})
+
+
+---------------------------------------------------------
+practical 4
+
+Aim: Importing the JSON data to the MongoDB
+Q1.Write a MongoDB query to display all the documents in the collection TYCSRN.
+
+Code: db.orders.find().pretty()
+ 
+Q2. Write a MongoDB query to display the fields restaurant_id, name, borough and cuisine for all the documents in the collection TYCSRN.
+
+Code:db.orders.find({},{"restaurant_id":1,"name":1,"borough":1,"cuisine":1}).pretty()
+
+ 
+
+Q3. Write a MongoDB query to display the fields restaurant_id, name, borough and cuisine, but exclude the field _id for all the documents in the collection TYCSRN.
+
+Code: db.orders.find({},{"restaurant_id":1,"name":1,"borough":1,"cuisine":1,"_id":0}).pretty()
+
+ 
+Q4. Write a MongoDB query to display the fields restaurant_id, name, borough and zip code, but exclude the field _id for all the documents in the collection TYCSRN.
+
+Code:db.orders.find({},{"restaurant_id":1,"name":1,"borough":1,"address.zipcode":1}).pretty()
+
+ 
+Q5. Write a MongoDB query to display all the documents which is in the borough is Bronx.
+
+Code: db.orders.find({"borough":"Bronx"}).pretty()
+
+ 
+Q6. Write a MongoDB query to display the first 5 records which is in the borough Bronx.
+
+Code: db.orders.find({“borough”:”Bronx”}).limit(5)
+
+ 
+Q7. Write a MongoDB query to display the next 5 TYCSRN after skipping first 5 which are in the borough Bronx.
+
+Code: db.orders.find({“borough”:”Bronx”}).limit(5)
+
+ 
+Q8. Write a MongoDB query to find the TYCSRN who achieved a score more than 90.
+
+Code: db.orders.find({grades:{$elemMatch:{"score":{$gt:90}}}})
+
+ 
+Q9. Write a MongoDB query to find the TYCSRN that achieved a score, more than 80 but less than 100.
+
+Code: db.orders.find({grades:{$elemMatch:{"score":{$gt:80,$lt:100}}}})
+
+ 
+Q10. Write a MongoDB query to find the TYCSRN which locate in latitude value less than - 95.754168.
+
+Code: db.orders.find({"address.coord":{$lt: -95.754168}}).pretty()
+
+ 
+Q11. Write a MongoDB query to find the TYCSRN that do not prepare any cuisine of 'American' and their grade score more than 70 and latitude less than 65.754168.
+
+Code:db.orders.find({$and:[{"cuisine":{$ne:"American"}},{"grades.score":{$gt:70}},{"address.coord":{$lt: -65.754168}}]}).pretty()
+
+ 
+Q12. Write a MongoDB query to find the TYCSRN which do not prepare any cuisine of 'American' and achieved a score more than 70 and located in the longitude less than - 65.754168.
+
+Code: db.orders.find({"cuisine":{$ne:"American"},"grades.score":{$gt:70},"address.coord":{$lt: -65.754168}}).pretty()
+
+ 
+Q13. Write a MongoDB query to find the TYCSRN which do not prepare any cuisine of 'American ' and achieved a grade point 'A' not belongs to the borough Brooklyn. The document must be displayed according to the cuisine in descending order.
+
+Code:db.orders.find({"cuisine":{$ne:"American"},"grades.grade":"A","borough":"Brooklyn"}).sort({"cuisine": -1}).pretty()
+
+ 
+Q14. Write a MongoDB query to find the restaurant Id, name, borough and cuisine for those TYCSRN which contain 'Wil' as first three letters for its name.
+
+Code:db.orders.find({name:/^Wil/},{"restaurant_id":1,"name":1,"borough":1,"cuisine":1}).pretty()
+ 
+Q15. Write a MongoDB query to find the restaurant Id, name, borough and cuisine for those TYCSRN which contain 'ces' as last three letters for its name.
+
+Code:db.orders.find({name:/ces$/},{"restaurant_id":1,"name":1,"borough":1,"cuisine":1}).pretty()
+
+ 
+Q16. Write a MongoDB query to find the restaurant Id, name, borough and cuisine for those TYCSRN which contain 'Reg' as three letters somewhere in its name.
+
+Code:db.orders.find({"name":/.*Reg.*/},{"restaurant_id":1,"name":1,"borough":1,"cuisine":1}).pretty()
+
+ 
+Q17. Write a MongoDB query to find the TYCSRN which belong to the borough Bronx and prepared either American or Chinese dish.
+
+Code:db.orders.find({"borough":"Bronx",$or:[{"cuisine":"American"},{"cuisine":"Chinese"}]}).pretty()
+
+ 
+Q18. Write a MongoDB query to find the restaurant Id, name, borough and cuisine for those TYCSRN which belong to the borough Staten Island or Queens or Bronxor Brooklyn .
+
+Code:db.orders.find({"borough":{$in:["StatenIsland","Queens","Bronx","Brooklyn"]}},{"restaurant_id":1,"name":1,"borough":1,"cuisine":1}).pretty()
+ 
+Q19. Write a MongoDB query to find the restaurant Id, name, borough and cuisine for those TYCSRN which are not belonging to the borough Staten Island or Queens or Bronxor Brooklyn.
+
+Code:db.orders.find({"borough":{$nin:["StatenIsland","Queens","Bronx","Brooklyn"]}},{"restaurant_id":1,"name":1,"borough":1,"cuisine":1}).pretty()
+
+ 
+Q20. Write a MongoDB query to find the restaurant Id, name, borough and cuisine for those TYCSRN which achieved a score which is not more than 10.
+
+Code:db.orders.find({"grades.score":{$not:{$gt:10}}},{"restaurant_id":1,"name":1,"borough":1,"cuisine":1}).pretty()
+
+ 
+Q21. Write a MongoDB query to find the restaurant Id, name, borough and cuisine for those TYCSRN which prepared dish except 'American' and 'Chinees' or restaurant's name begins with letter 'Wil'
+
+Code:db.orders.find({$or:[{name:/^Wil/},{"$and":[{"cuisine":{$ne:"American"}},{"cuisine":{$ne:"Chinees"}}]}]},{"restaurant_id":1,"name":1,"borough":1,"cuisine":1}).pretty()
+
+ 
+Q22. Write a MongoDB query to find the restaurant Id, name, and grades for those TYCSRN which achieved a grade of "A" and scored 11 on an ISODate "201408-11T00:00:00Z" among many of survey dates.
+
+Code: db.orders.find({"grades.date":ISODate("201408-11T00:00:00Z"),"grades.grade":"A","grades.score":11},{"restaurant_id":1,"name":1,"grades":1}).pretty()
+
+ 
+Q23. Write a MongoDB query to find the restaurant Id, name and grades for those restaurants where the 2nd element of grades array contains a grade of "A" and score 9 on an ISODate "2014-08-11T00:00:00Z".
+
+Code: db.orders.find({"grades.1.date":ISODate("2014-08-11T00:00:00Z"),"grades.1.grade":"A","grades.1.score":9},{"restaurant_id":1,"name":1,"grades":1}).pretty()
+ 
+Q24. Write a MongoDB query to find the restaurant Id, name, address and geographical location for those TYCSRN where 2nd element of coord array contains a value which is more than 42 and upto 52.
+
+Code:db.orders.find({"address.coord.1":{$gt:42,$lte:52}},{"restaurant_id":1,"name":1,"address":1,"coord":1}).pretty()
+
+ 
+Q25. Write a MongoDB query to arrange the name of the TYCSRN in ascending order along with all the columns.
+
+Code: db.orders.find().sort({"name":1}).pretty()	
+
+ 
+Q26. Write a MongoDB query to arrange the name of the TYCSRN in descending along with all the columns.
+
+Code: db.orders.find().sort({"name": -1}).pretty()
+
+ 
+Q27.  Write a MongoDB query to arranged the name of the cuisine in ascending order and borough should be in descending order
+
+Code: db.orders.find().sort({"cuisine": 1,"borough": -1}).pretty()
+
+ 
+Q28. Write a MongoDB query to know whether all the addresses contains the street or not.
+
+Code: db.orders.find({"address.street":{$exists:true}}).pretty()
+
+ 
+Q29. Write a MongoDB query which will select all documents in the TYCSRN collection where the coord field value is Double
+
+Code: db.orders.find({"address.coord":{$type:1}}).pretty()
+
+ 
+Q30. Write a MongoDB query which will select the restaurant Id, name and grades for those TYCSRN which returns 0 as a remainder after dividing the score by 7.
+
+Code:db.orders.find({"grades.score":{$mod:[7,0]}},{"restaurant_id":1,"name":1,"grades":1}).pretty()
+
+ 
+Q31. Write a MongoDB query to find the restaurant name, borough, longitude and attitude and cuisine for those TYCSRN which contains 'mon' as three letters somewhere in its name.
+
+Code:db.orders.find({name:{$regex:"mon,*",$options:"i"}},{"name":1,"borough":1,"address.coord":1,"cuisine":1}).pretty()
+
+ 
+Q32. Write a MongoDB query to find the restaurant name, borough, longitude and latitude and cuisine for those TYCSRN which contain 'Mad' as first three letters of its name.
+
+Code:db.orders.find({name:{$regex:/^Mad/i}},{"name":1,"borough":1,"address.coord":1,"cuisine":1}).pretty()
+
+ 
+
+---------------------------------------------------------
+practical 5
+
+Aim: Aggregate functions: MongoDB advanced queries using aggregation
+
+Insert employee (id, name, age, city, salary) collection with 10 records in the database and display all the records.
+Code: db.emp.insertMany([{id: "101",name:"Pramod",age:19,city:"Dombivli",salary:100000},{id: "102",name:"Anurag",age:20,city:"Thane",salary:90000},{id: "103",name:"Riddhi",age:20,city:"Thakurli",salary:10000},{id: "104",name:"Shreya",age:20,city:"Bhandup",salary:20000},{id: "105",name:"Sandesh",age:19,city:"Thane",salary:300000},{id: "106",name:"Niramyi",age:20,city:"Thane",salary:40000},{id: "107",name:"Shruti",age:20,city:"Bhandup",salary:60000},{id: "108",name:"Sivam",age:19,city:"Thane",salary:50000},{id: "109",name:"Amod",age:19,city:"Dombivli",salary:120000},{id: "110",name:"John",age:19,city:"Kurla",salary:80000}])
+Output:
+ 
+ 
+⦁	Group by function to get count.
+Code: db.emp.aggregate([{$group:{_id:"$city",num_emp:{$sum:1}}}])
+ 
+⦁	Sum function.
+Code:db.emp.aggregate([{$group:{_id:"$city",total_sal:{$sum:"$salary"}}}])
+
+ 
+⦁	Avg function
+Code: db.emp.aggregate([{$group:{_id:"$city",avg_sal:{$avg:"$salary"}}}])
+ 
+⦁	Min function
+Code: db.emp.aggregate([{$group:{_id:"$city",min_sal:{$min:"$salary"}}}])
+ 
+⦁	 Max function
+Code: db.emp.aggregate([{$group:{_id:"$city",max_sal:{$max:"$salary"}}}]) 
+⦁	Push function
+Code: db.emp.aggregate([{$group:{_id:"$city",num_tutorial:{$push:"$salary"}}}])
+
+
+
+  
+⦁	addToSet function
+Code: db.emp.aggregate([{$group:{_id:"$city",url:{$addToSet:"$salary"}}}])
+ 
+⦁	First function
+Code: db.emp.aggregate([{$group:{_id:"$city",url:{$first:"$salary"}}}])
+ 
+⦁	Last function
+Code: db.emp.aggregate([{$group:{_id:"$city",url:{$last:"$salary"}}}])
+ 
+
+Create a Collection Student with the following Fields (Sid,Sname,age,City,courses,marks) where courses is an array perform the Following Queries based on the collection.
+Code: db.std.insertMany([{id: "101",name:"Pramod",age:19,city:"Dombivli",courses:["AI","NOSQL"],marks:100},{id: "102",name:"Anurag",age:20,city:"Thane",courses:["INS","IR"],marks:80},{id: "103",name:"Riddhi",age:20,city:"Thakurli",courses:["INS","AI"],marks:70},{id: "104",name:"Shreya",age:20,city:"Bhandup",courses:["IR","NOSQL"],marks:50},{id: "105",name:"Sandesh",age:19,city:"Thane",courses:["INS","IR"],marks:85},{id: "106",name:"Niramyi",age:20,city:"Thane",courses:["AI","WS"],marks:60}])
+ 
+
+⦁	Write a MongoDB query to use sum, avg, min and max expression.
+Code: db.std.aggregate([{$group:{_id:"$city",num_std:{$sum:1}}}])
+ 
+
+Code: db.std.aggregate([{$group:{_id:"$city",avg_std:{$avg:"$marks"}}}])
+ 
+Code: db.std.aggregate([{$group:{_id:"$city",min_std:{$min:"$marks"}}}])
+ 
+Code: db.std.aggregate([{$group:{_id:"$city",min_std:{$max:"$marks"}}}])
+ 
+⦁	Write a MongoDB query to use push and addToSet
+Code: db.std.aggregate([{$group:{_id:"$city",num_courses:{$push:"$courses"}}}])
+ 
+Code: db.std.aggregate([{$group:{_id:"$city",num_marks:{$addToSet:"$marks"}}}])
+  
+
+⦁	Write a MongoDB query to use first and last expression.
+Code: db.std.aggregate([{$group:{_id:"$city",url:{$first:"$marks"}}}])
+ 
+Code: db.std.aggregate([{$group:{_id:"$city",url:{$last:"$marks"}}}])
+ 
+
+---------------------------------------------------------
+practical 6
+
+PRACTICAL 6
+
+Aim: Text search in MongoDB – Text fields in collection, create an index, prepare search items, text search
+
+ 
+ 
+⦁	Verify that the documents were properly inserted by running the find() method.
+Code: db.peaks.find()
+
+
+ 
+
+⦁	Retrieve documents that describe a mountain peak with a height value greater than 8700. Check the returned and total keys examined.
+Code: db.peaks.find({ "height": { $gt: 8700 } }).explain("executionStats")
+
+  
+⦁	Create an index on the height field in the peaks collection.
+Code: db.peaks.createIndex( { "height": 1 } )
+ 
+ 
+⦁	Run the same query from Q. 2 and check the returned and total keys examined.
+ 
+⦁	Create an indexe to ensure the values of a given field “name” will be unique for every document in a collection
+Code: db.peaks.createIndex( { "name": 1 }, { "unique": true } )
+
+ 
+⦁	Check whether you’re able to add a second document representing Mt. Everest to the collection using insertOne().
+Code: db.peaks.insertOne({"name": "Everest","description": "Another entry for Mount Everest","height": 8848,"location": ["Nepal", "China"],"ascents": {"first": {"year": 1953},"first_winter": {"year": 1980},"total": 5656}});
+
+ 
+
+⦁	Return documents whose total — a field nested within the ascents document found in each document in the peaks collection is greater than 300 and sorts the results in descending order.
+Code: db.peaks.find({ "ascents.total": { $gt: 300 } }).sort({ "ascents.total": -1 })
+ 
+⦁	Run the same query, but include the explain("executionStats") method used previously.
+ 
+⦁	Create an index on the total field within the ascents document. (Embedded Indexing).
+Code: db.peaks.createIndex( { "ascents.total": 1 } )
+
+ 
+⦁	Run the previous query once again to check whether the index helped MongoDB avoid performing a full collection scan.
+ 
+⦁	Find mountains with a height of less than 8600 meters whose first winter ascent occurred after the year 1990.
+Code:  db.peaks.find({"ascents.first_winter.year": { $gt: 1990 },"height": { $lt: 8600 }}).sort({ "height": -1 })
+ 
+⦁	Create an ascending index for peaks’ first winter ascents and descending index for their heights. (Compound Field Index)
+Code: db.peaks.find({"ascents.first_winter.year": { $gt: 1990 },"height": { $lt: 8600 }}).sort({ "height": -1 }).explain("executionStats")
+ 
+⦁	Run the previous query once again to test whether there was any change in how the query was performed.
+ 
+⦁	Finding all the mountains in the collection that are located in Nepal.
+Code: db.peaks.find({"ascents.first_winter.year": { $gt: 1990 },"height": { $lt: 8600 }}).sort({ "height": -1 }).explain("executionStats")
+ 
+⦁	Create a new index for the location field. (Multi-key Index)
+Code: db.peaks.find({ "location": "Nepal" })
+ 
+⦁	Run the previous query once again to test whether there was any change in how the query was performed for Multi-key Index.
+ 
+ 
+⦁	List all the indexes you’ve defined on the peaks collection.
+Code: db.peaks.getIndexes()
+ 
+⦁	To remove the index created on the first winter ascent and height.
+Code: db.peaks.dropIndex("ascents.first_winter.year_1_height_-1")
+     db.peaks.getIndexes()
+ 
+⦁	Retrieve documents matching with the keyword “Earth’s” in description field using an index.
+ 
+⦁	Retrieve documents matching with the keyword “Earth’s” in description field using an index.
+ 
+⦁	Retrieve documents matching with the keyword “Earth’s highest mountain” in description field using an index.
+Code: db.peaks.find({ $text: { $search: "\"Earth's highest mountain\"" } });
+ 
+22. Retrieve documents containing the keywords “highest mountain” but not the keyword “fourth” in description field using an index.
+
+Code: db.peaks.find({$text:{$search:"highest mountain -fourth"}})
+ 
+
+
+---------------------------------------------------------
+practical 7
+
+Practical 7
+Aim: Write a Java program to demonstrate the connections to MongoDB
+Q1) Insert
+Code:
+package nosqlpr7;
+import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoDatabase;
+import com.mongodb.MongoClient;
+import org.bson.Document;
+
+public class NOSQLPR7 {
+    public static void main(String[] args){
+		MongoClient mongo=new MongoClient("localhost",27017);
+		System.out.println("connected to the database successfully:");
+		MongoDatabase database=mongo.getDatabase("TYCS");
+				MongoCollection<Document>collection=database.getCollection("STUDENT_COL");
+		System.out.println("Collection STUDENT_COL selected successfully");		
+		Document document=new Document();
+		document.append("ID",1);
+		document.append("Rollno",248637);
+		document.append("age",19);
+		document.append("college","Mulund College of Commerce");
+		collection.insertOne(document);
+		System.out.println("Document inserted Successfully");
+    }
+}
+
+Output:
+ 
+ 
+
+Q2) Retrieve
+Code:
+import com.mongodb.client.MongoCollection;
+import com.mongodb.client.FindIterable;
+import com.mongodb.client.MongoDatabase;
+import com.mongodb.MongoClient;
+import org.bson.Document;
+import java.util.Iterator;
+public class retrieve {
+    public static void main(String[] args){
+        MongoClient mongo = new MongoClient("localhost", 27017);
+        System.out.println("Connected to the database successfully:");
+        MongoDatabase database = mongo.getDatabase("TYCS");
+        MongoCollection<Document> collection = database.getCollection("STUDENT_COL");
+        System.out.println("Collection TYCSCOLL selected successfully");
+       FindIterable<Document> iterDoc = collection.find();
+      Iterator it = iterDoc.iterator();
+      while (it.hasNext()) {
+         System.out.println(it.next());
+      }
+        mongo.close();
+    }
+}
+
+Output:
+ 
+Q3) Update
+Code:
+import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoDatabase;
+import com.mongodb.MongoClient;
+import org.bson.Document;
+import com.mongodb.client.model.*;
+
+public class update {
+        public static void main(String[] args) {
+        MongoClient mongo = new MongoClient("localhost", 27017);
+        System.out.println("Connected to the database successfully:");
+        MongoDatabase database = mongo.getDatabase("TYCS");
+        MongoCollection<Document> collection = database.getCollection("STUDENT_COL");
+        System.out.println("Collection TYCSCOLL selected successfully");
+
+        Document filter = new Document("Rollno", 248637);
+        Document updateDoc = new Document("$set", new Document("age", 22));
+        collection.updateOne(filter, updateDoc);
+        System.out.println("Document updated Successfully");
+    }
+}
+
+Output:
+ 
+ 
+Q4) Delete
+Code:
+import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoDatabase;
+import com.mongodb.MongoClient;
+import org.bson.Document;
+import com.mongodb.client.model.Filters;
+
+public class Delete {
+    public static void main(String[] args) {
+        MongoClient mongo = new MongoClient("localhost", 27017);
+        System.out.println("Connected to the database successfully:");
+        MongoDatabase database = mongo.getDatabase("TYCS");
+        MongoCollection<Document> collection = database.getCollection("STUDENT_COL");
+        System.out.println("Collection STUDENT COL selected successfully");
+        Document filter = new Document("Rollno", 248637);
+        collection.deleteMany(filter);
+        System.out.println("Document deleted Successfully");
+    }
+}
+
+Output:
+ 
+ 
+
+---------------------------------------------------------
+practical 8
+
+Practical 8
+Aim: Write a Python program to demonstrate the connections to MongoDB
+Q1) Insert
+Code:
+from pymongo import MongoClient
+client = MongoClient('localhost',27017) #MongoClient('host',port)
+db = client.TYCS #client.name_of_the_database
+def insert():
+    try:
+        empID = input("Enter the ID: ")
+        empName = input("Enter the Name: ")
+        empAge = input("Enter the Age: ")
+        empCountry = input("Enter the Country: ")
+
+        db.pyrmp.insert_one(
+            {
+                "_id": empID,
+                "name": empName,
+                "age": empAge,
+                "country": empCountry,
+            }
+        )
+        print("\nData Inserted Successfully.")
+    except Exception:
+        print(str(Exception))
+    finally:
+        client.close()
+
+insert()
+
+Output:
+ 
+ 
+
+Q2) Update
+Code:
+from pymongo import MongoClient
+client = MongoClient('localhost',27017)
+db = client.TYCS
+
+def update():
+    try:
+        name = input('Enter the name of person whose data is to be updated: ')
+        age = input("Enter the updated age: ")
+        db.pyrmp.update_one(
+            {"name": name},
+            {"$set": {"age": age}}
+        )
+        print("\nData Updated Successfully")
+    except Exception:
+        print(str(Exception))
+    finally:
+        client.close()
+
+update()
+
+Output:
+ 
+ 
+Q3) Delete
+Code:
+from pymongo import MongoClient
+client = MongoClient('localhost',27017)
+db = client.TYCS
+
+def delete():
+    try:
+        id = input('Enter the ID: ')
+        db.pyrmp.delete_one(
+            {"_id:": id}
+        )
+        print('\nData Deleted Successfully')
+    except Exception:
+        print(str(Exception))
+    finally:
+        client.close()
+delete()
+
+Output:
+ 
+ 
+Q4) Display
+Code:
+from pymongo import MongoClient
+client = MongoClient('localhost',27017)
+db = client.TYCS
+def display():
+    try:
+        id = input("Enter the ID to display record: ")
+        for i in db.pyrmp.find({"empId":id}):
+            print(i)
+        print("\nRecord displayed")
+    except Exception:
+        print(str(Exception))
+    finally:
+        client.close()
+display()
+
+
+Output:
+ 
+
+---------------------------------------------------------
+practical 9
+
+
+step1: From Software folder in the desktop, copy the php_mongodb.dll file
+Step2: Paste the file in the following folder: C: -> xampp -> php -> ext
+Step3: Go to C: -> xampp -> php and right click on php.ini file and edit (If you cant see extension the above view tab would be their, in that a checkbox would be there to show file extension)
+Step4: in that search for a part where extension=php_mysql.dll like that code would be there. 
+There add the following code: extension=php_mongodb.dll      
+
+
+also to find where to put "extension=php_mongodb.dll" can do ctrl+f in that search any of below one line only again i have givene multiple only use one line to search
+
+;extension=pdo_firebird
+extension=pdo_mysql
+;extension=pdo_oci
+;extension=pdo_odbc
+;extension=pdo_pgsql
+extension=pdo_sqlite
+;extension=pgsql
+;extension=shmop
+
+Step5: Save the file. NOw go to htdocs and code
+
+
+PRACTICAL 9
+Aim : Write a php program to demonstrate the connections to MongoDB
+Q1) Insert
+<?php
+$m=new MongoClient();
+echo"Connection to Database Succesfully";
+$db=$m->TYCS_248637;
+echo"Database my db selected";
+$collection=$db->mycol;
+echo"Collection select succesfull";
+$doc=array(
+"title" => "Pramod Joshi",
+"description" => "student",
+"like"=>50,
+"url"=>"http://www.google.com",
+"by"=>"MCC");
+$collection->insert($doc);
+echo"Document inserted succesfully";
+ ?>
+ 
+ 
+
+Q2) Retrieve
+<?php
+$m=new MongoClient();
+echo "Connection to Database Succesfully";
+$db=$m->TYCS_248637;
+echo "Database TYCS_248637 selected";
+$collection=$db->mycol;
+echo "Collection selected succesfully";
+
+$cursor=$collection->find();
+
+foreach ($cursor as $doc){
+echo "<br>".$doc["title"]."<br>";
+echo "<br>".$doc["description"]."<br>";
+echo "<br>".$doc["url"]."<br>";
+echo "<br>".$doc["like"]."<br>";
+}
+?>
+ 
+
+Q3)Update 
+<?php
+   $m = new MongoClient();
+   echo "Connection to database successfully";
+   $db = $m->TYCS_248637;
+   echo "Database TYCS_248637 selected";
+   $collection = $db->mycol;
+   echo "Collection selected succsessfully";
+   $collection->update(array("title"=>"Pramod Joshi"), 
+      array('$set'=>array("title"=>"MongoDB Tutorial")));
+   echo "Document updated successfully";
+   $cursor = $collection->find();
+   echo "Updated document";
+   foreach ($cursor as $document) {
+      echo $document["title"] . "<br>";
+   }
+?>
+ 
+ 
+
+
+Q4) Delete
+<?php
+   $m = new MongoClient();
+   echo "Connection to database successfully";
+   $db = $m->TYCS_248637;
+   echo "Database TYCS_248637selected";
+   $collection = $db->mycol;
+   echo "Collection selected succsessfully";
+   $collection->remove(array("title"=>"MongoDB Tutorial"));
+   echo "Documents deleted successfully";
+   $cursor = $collection->find();
+   echo "Delete document";
+   foreach ($cursor as $document) {
+      echo $document["title"] . "\n";
+   }
+?>
+ 
+
+ 
+
+---------------------------------------------------------
+practical 10
+
+PRACTICAL NO. : 10
+AIM: Perform backup and restore databases in MongoDB
+Step 1: Open three command prompts as administrator
+Type following commands:
+Command Prompt 1: mongod
+Command Prompt 2: mongo
+Command Prompt 3: cd C:\Program Files\MongoDB\Server\5.0\bin
+Backup and restore of All the databases:
+Step 2: In 2nd command prompt show the database
+Show dbs
+
+Step 3: To create the backup files of databases, type in 3rd command promt,
+Mongodump
+
+Step 3: In 2nd Command prompt, Switch to the databases and delete all.
+Db.dropDatabase()
+Show dbs
+
+Step 4: To restore all the deleted databases, type in 3rd Command prompt
+Mongorestore
+
+Step 5: Check the result in 2nd Command prompt
+Show dbs
+
+Backup and restore a single the database:
+Step 6: Delete the dump folder created in bin directory of Mongodb
+In 3rd command, use the following syntax
+Mongodump  - -db databasename
+
+Step 7: To restore the one of the databases,
+Delete the one of the databases
+In 2nd command prompt, 
+Show dbs
+Use databasename
+Db.dropDatabase()
+Show dbs
+
+Step 8: To restore the deleted database, type in 3rd Command prompt,
+Mongorestore  - -db databasename dump/databasename
+
+Step 9: Check the result in 2nd command prompt
+Show dbs 
+
+ backup and restore a single collection:
+Step 10: Delete the dump folder created in bin directory of Mongodb
+Check the database and its collection in 2nd command prompt
+
+Step 11: To back up the collection, In 3rd command prompt, type
+Mongodump --db databasename --collection collectionname
+
+Check the result in Bin folder.
+
+Step 12: To restore, delete the collection
+Db.collectionname.drop()
+
+Step 13: To restore the deleted collection
+Mongorestore --db databasename --collection collectioname dump/databasename/collectionname.bson
+
+Check the collection using
+Show collections  
+
+
+
+
+---------------------------------------------------------

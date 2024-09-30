@@ -1,0 +1,63 @@
+Aim: Aggregate functions: MongoDB advanced queries using aggregation
+
+Insert employee (id, name, age, city, salary) collection with 10 records in the database and display all the records.
+Code: db.emp.insertMany([{id: "101",name:"Pramod",age:19,city:"Dombivli",salary:100000},{id: "102",name:"Anurag",age:20,city:"Thane",salary:90000},{id: "103",name:"Riddhi",age:20,city:"Thakurli",salary:10000},{id: "104",name:"Shreya",age:20,city:"Bhandup",salary:20000},{id: "105",name:"Sandesh",age:19,city:"Thane",salary:300000},{id: "106",name:"Niramyi",age:20,city:"Thane",salary:40000},{id: "107",name:"Shruti",age:20,city:"Bhandup",salary:60000},{id: "108",name:"Sivam",age:19,city:"Thane",salary:50000},{id: "109",name:"Amod",age:19,city:"Dombivli",salary:120000},{id: "110",name:"John",age:19,city:"Kurla",salary:80000}])
+Output:
+ 
+ 
+⦁	Group by function to get count.
+Code: db.emp.aggregate([{$group:{_id:"$city",num_emp:{$sum:1}}}])
+ 
+⦁	Sum function.
+Code:db.emp.aggregate([{$group:{_id:"$city",total_sal:{$sum:"$salary"}}}])
+
+ 
+⦁	Avg function
+Code: db.emp.aggregate([{$group:{_id:"$city",avg_sal:{$avg:"$salary"}}}])
+ 
+⦁	Min function
+Code: db.emp.aggregate([{$group:{_id:"$city",min_sal:{$min:"$salary"}}}])
+ 
+⦁	 Max function
+Code: db.emp.aggregate([{$group:{_id:"$city",max_sal:{$max:"$salary"}}}]) 
+⦁	Push function
+Code: db.emp.aggregate([{$group:{_id:"$city",num_tutorial:{$push:"$salary"}}}])
+
+
+
+  
+⦁	addToSet function
+Code: db.emp.aggregate([{$group:{_id:"$city",url:{$addToSet:"$salary"}}}])
+ 
+⦁	First function
+Code: db.emp.aggregate([{$group:{_id:"$city",url:{$first:"$salary"}}}])
+ 
+⦁	Last function
+Code: db.emp.aggregate([{$group:{_id:"$city",url:{$last:"$salary"}}}])
+ 
+
+Create a Collection Student with the following Fields (Sid,Sname,age,City,courses,marks) where courses is an array perform the Following Queries based on the collection.
+Code: db.std.insertMany([{id: "101",name:"Pramod",age:19,city:"Dombivli",courses:["AI","NOSQL"],marks:100},{id: "102",name:"Anurag",age:20,city:"Thane",courses:["INS","IR"],marks:80},{id: "103",name:"Riddhi",age:20,city:"Thakurli",courses:["INS","AI"],marks:70},{id: "104",name:"Shreya",age:20,city:"Bhandup",courses:["IR","NOSQL"],marks:50},{id: "105",name:"Sandesh",age:19,city:"Thane",courses:["INS","IR"],marks:85},{id: "106",name:"Niramyi",age:20,city:"Thane",courses:["AI","WS"],marks:60}])
+ 
+
+⦁	Write a MongoDB query to use sum, avg, min and max expression.
+Code: db.std.aggregate([{$group:{_id:"$city",num_std:{$sum:1}}}])
+ 
+
+Code: db.std.aggregate([{$group:{_id:"$city",avg_std:{$avg:"$marks"}}}])
+ 
+Code: db.std.aggregate([{$group:{_id:"$city",min_std:{$min:"$marks"}}}])
+ 
+Code: db.std.aggregate([{$group:{_id:"$city",min_std:{$max:"$marks"}}}])
+ 
+⦁	Write a MongoDB query to use push and addToSet
+Code: db.std.aggregate([{$group:{_id:"$city",num_courses:{$push:"$courses"}}}])
+ 
+Code: db.std.aggregate([{$group:{_id:"$city",num_marks:{$addToSet:"$marks"}}}])
+  
+
+⦁	Write a MongoDB query to use first and last expression.
+Code: db.std.aggregate([{$group:{_id:"$city",url:{$first:"$marks"}}}])
+ 
+Code: db.std.aggregate([{$group:{_id:"$city",url:{$last:"$marks"}}}])
+ 

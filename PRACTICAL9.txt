@@ -1,0 +1,83 @@
+
+PRACTICAL 9
+Aim : Write a php program to demonstrate the connections to MongoDB
+Q1) Insert
+<?php
+$m=new MongoClient();
+echo"Connection to Database Succesfully";
+$db=$m->TYCS_248637;
+echo"Database my db selected";
+$collection=$db->mycol;
+echo"Collection select succesfull";
+$doc=array(
+"title" => "Pramod Joshi",
+"description" => "student",
+"like"=>50,
+"url"=>"http://www.google.com",
+"by"=>"MCC");
+$collection->insert($doc);
+echo"Document inserted succesfully";
+ ?>
+ 
+ 
+
+Q2) Retrieve
+<?php
+$m=new MongoClient();
+echo "Connection to Database Succesfully";
+$db=$m->TYCS_248637;
+echo "Database TYCS_248637 selected";
+$collection=$db->mycol;
+echo "Collection selected succesfully";
+
+$cursor=$collection->find();
+
+foreach ($cursor as $doc){
+echo "<br>".$doc["title"]."<br>";
+echo "<br>".$doc["description"]."<br>";
+echo "<br>".$doc["url"]."<br>";
+echo "<br>".$doc["like"]."<br>";
+}
+?>
+ 
+
+Q3)Update 
+<?php
+   $m = new MongoClient();
+   echo "Connection to database successfully";
+   $db = $m->TYCS_248637;
+   echo "Database TYCS_248637 selected";
+   $collection = $db->mycol;
+   echo "Collection selected succsessfully";
+   $collection->update(array("title"=>"Pramod Joshi"), 
+      array('$set'=>array("title"=>"MongoDB Tutorial")));
+   echo "Document updated successfully";
+   $cursor = $collection->find();
+   echo "Updated document";
+   foreach ($cursor as $document) {
+      echo $document["title"] . "<br>";
+   }
+?>
+ 
+ 
+
+
+Q4) Delete
+<?php
+   $m = new MongoClient();
+   echo "Connection to database successfully";
+   $db = $m->TYCS_248637;
+   echo "Database TYCS_248637selected";
+   $collection = $db->mycol;
+   echo "Collection selected succsessfully";
+   $collection->remove(array("title"=>"MongoDB Tutorial"));
+   echo "Documents deleted successfully";
+   $cursor = $collection->find();
+   echo "Delete document";
+   foreach ($cursor as $document) {
+      echo $document["title"] . "\n";
+   }
+?>
+ 
+
+ 

@@ -1,0 +1,62 @@
+PRACTICAL NO. : 10
+AIM: Perform backup and restore databases in MongoDB
+Step 1: Open three command prompts as administrator
+Type following commands:
+Command Prompt 1: mongod
+Command Prompt 2: mongo
+Command Prompt 3: cd C:\Program Files\MongoDB\Server\5.0\bin
+Backup and restore of All the databases:
+Step 2: In 2nd command prompt show the database
+Show dbs
+
+Step 3: To create the backup files of databases, type in 3rd command promt,
+Mongodump
+
+Step 3: In 2nd Command prompt, Switch to the databases and delete all.
+Db.dropDatabase()
+Show dbs
+
+Step 4: To restore all the deleted databases, type in 3rd Command prompt
+Mongorestore
+
+Step 5: Check the result in 2nd Command prompt
+Show dbs
+
+Backup and restore a single the database:
+Step 6: Delete the dump folder created in bin directory of Mongodb
+In 3rd command, use the following syntax
+Mongodump  - -db databasename
+
+Step 7: To restore the one of the databases,
+Delete the one of the databases
+In 2nd command prompt, 
+Show dbs
+Use databasename
+Db.dropDatabase()
+Show dbs
+
+Step 8: To restore the deleted database, type in 3rd Command prompt,
+Mongorestore  - -db databasename dump/databasename
+
+Step 9: Check the result in 2nd command prompt
+Show dbs 
+
+ backup and restore a single collection:
+Step 10: Delete the dump folder created in bin directory of Mongodb
+Check the database and its collection in 2nd command prompt
+
+Step 11: To back up the collection, In 3rd command prompt, type
+Mongodump --db databasename --collection collectionname
+
+Check the result in Bin folder.
+
+Step 12: To restore, delete the collection
+Db.collectionname.drop()
+
+Step 13: To restore the deleted collection
+Mongorestore --db databasename --collection collectioname dump/databasename/collectionname.bson
+
+Check the collection using
+Show collections  
+
+

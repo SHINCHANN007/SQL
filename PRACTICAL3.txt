@@ -1,0 +1,122 @@
+Q1.Create a sample collection orders.
+
+Customer(Name),Address(City,Country),PaymentMode(Cash,Card,NetBanking,UPI),Email,OrderTotal,
+OrderItems(ItemName,Price,Qty)
+
+Code:
+
+db.orders.insert([
+{Customer:"Prakash",
+Address:{"City":"Thane","Country":"India"},
+PaymentMode:"Card",
+Email:"abcd090@mail.in",
+OrderTotal:1000.00,
+OrderItems:[
+{"ItemName":"notebook","Price":"150.00","Qty":10},
+{"ItemName":"paper","Price":"10.00","Qty":5},
+{"ItemName":"journal","Price":"200.00","Qty":2},
+{"ItemName":"postcard","Price":"10.00","Qty":500}
+] 
+},
+{
+Customer:"Mahesh",
+Address:{"City":"mulund","Country":"India"},
+PaymentMode:"Cash",
+Email:"awcd090@mail.in",
+OrderTotal:800.00,
+OrderItems:[
+{"ItemName":"notebook","Price":"150.00","Qty":5},
+{"ItemName":"paper","Price":"10.00","Qty":5},
+{"ItemName":"postcard","Price":"10.00","Qty":500}
+] 
+},
+{
+Customer:"luvkesh",
+Address:{"City":"sion","Country":"India"},
+PaymentMode:"Card",
+Email:"ron@mail.com",
+OrderTotal:800.00,
+OrderItems:[
+{"ItemName":"notebook","Price":"150.00","Qty":5},
+{"ItemName":"postcard","Price":"10.00","Qty":00}
+] 
+}
+])
+
+Q2.Write a query to display all documents from MongoDB orders collections.
+
+Code: db.orders.find()
+
+Q3.Write a query to display the order where PaymentMode is 'Card' 
+
+Code:db.orders.find({PaymentMode:”Card”})
+
+Q4.Write a query to display the order where Country is 'India' (you can use a dot notation).
+
+Code:db.orders.find({“Address.Country”:”India”})
+
+
+Q5.Write a query to display the order where Item Name is ‘NoteBook’.
+
+Code:db.orders.find({“OrderItems.ItemName”:”notebook”})
+
+
+Q6.Write a query to display the documents where OrderTotal is greater than 500.
+
+Code: db.orders.find({"OrderTotal":{$gt:500}})
+
+
+Q7.Write a query to display the documents where OrderTotal is greater than 500 or equal to 500.
+
+Code: db.orders.find({"OrderTotal":{$gte:500}})
+
+Q8.Write a query to display the documents where OrderTotal is less than 900.
+
+Code: db.orders.find({"OrderTotal":{$lt:900}})
+
+Q9. .Write a query to display the documents where OrderTotal is less than or equal to 900.
+
+Code: db.orders.find({"OrderTotal":{$lte:900}})
+
+Q10.Write a query to display the order where PaymentMode is not 'Cash'
+
+Code: db.orders.find({"PaymentMode":{$ne:"Cash"}})
+
+Q11. Write a query to display the order where Item Name is ‘NoteBook’ or ‘Assignment Papers’ 
+or ‘pen’
+
+Code: db.orders.find({"OrderItems.ItemName":{$in:["notebook","paper","pen"]}})
+
+Q12. Write a query to display the order where Item Name is not ‘NoteBook’ or ‘Assignment 
+Papers’
+
+Code: db.orders.find({"OrderItems.ItemName":{$nin:["notebook","paper"]}})
+
+
+Q13. Write a query to display the order where city is Mumbai and Item Name is ‘NoteBook’
+
+Code:db.orders.find({$and:[{"Address.City":"Dombivli"},{"OrderItems.ItemName":"notebook"}]})
+
+Q14.Write a query to display the order where OrderTotal is 600 or price is 200
+
+Code: db.orders.find({"OrderTotal":{$in:[600,200]}})
+
+Q15. Write a query to display the order where OrderTotal is not equal to 600
+
+Code: db.orders.find({"OrderTotal":{$ne:600}})
+
+Q16. Write a query to display the order where city is not Mumbai and Item Name is not 
+‘NoteBook’
+
+Code:
+db.orders.find({$and:[{"Address.City":{$ne:"Mumbai"}},{"OrderItems.ItemName":{$ne:"notebook"}}]})
+
+
+
+
+
+
+
+
+
+

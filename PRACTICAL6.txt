@@ -1,0 +1,76 @@
+PRACTICAL 6
+
+Aim: Text search in MongoDB – Text fields in collection, create an index, prepare search items, text search
+
+ 
+ 
+⦁	Verify that the documents were properly inserted by running the find() method.
+Code: db.peaks.find()
+
+
+ 
+
+⦁	Retrieve documents that describe a mountain peak with a height value greater than 8700. Check the returned and total keys examined.
+Code: db.peaks.find({ "height": { $gt: 8700 } }).explain("executionStats")
+
+  
+⦁	Create an index on the height field in the peaks collection.
+Code: db.peaks.createIndex( { "height": 1 } )
+ 
+ 
+⦁	Run the same query from Q. 2 and check the returned and total keys examined.
+ 
+⦁	Create an indexe to ensure the values of a given field “name” will be unique for every document in a collection
+Code: db.peaks.createIndex( { "name": 1 }, { "unique": true } )
+
+ 
+⦁	Check whether you’re able to add a second document representing Mt. Everest to the collection using insertOne().
+Code: db.peaks.insertOne({"name": "Everest","description": "Another entry for Mount Everest","height": 8848,"location": ["Nepal", "China"],"ascents": {"first": {"year": 1953},"first_winter": {"year": 1980},"total": 5656}});
+
+ 
+
+⦁	Return documents whose total — a field nested within the ascents document found in each document in the peaks collection is greater than 300 and sorts the results in descending order.
+Code: db.peaks.find({ "ascents.total": { $gt: 300 } }).sort({ "ascents.total": -1 })
+ 
+⦁	Run the same query, but include the explain("executionStats") method used previously.
+ 
+⦁	Create an index on the total field within the ascents document. (Embedded Indexing).
+Code: db.peaks.createIndex( { "ascents.total": 1 } )
+
+ 
+⦁	Run the previous query once again to check whether the index helped MongoDB avoid performing a full collection scan.
+ 
+⦁	Find mountains with a height of less than 8600 meters whose first winter ascent occurred after the year 1990.
+Code:  db.peaks.find({"ascents.first_winter.year": { $gt: 1990 },"height": { $lt: 8600 }}).sort({ "height": -1 })
+ 
+⦁	Create an ascending index for peaks’ first winter ascents and descending index for their heights. (Compound Field Index)
+Code: db.peaks.find({"ascents.first_winter.year": { $gt: 1990 },"height": { $lt: 8600 }}).sort({ "height": -1 }).explain("executionStats")
+ 
+⦁	Run the previous query once again to test whether there was any change in how the query was performed.
+ 
+⦁	Finding all the mountains in the collection that are located in Nepal.
+Code: db.peaks.find({"ascents.first_winter.year": { $gt: 1990 },"height": { $lt: 8600 }}).sort({ "height": -1 }).explain("executionStats")
+ 
+⦁	Create a new index for the location field. (Multi-key Index)
+Code: db.peaks.find({ "location": "Nepal" })
+ 
+⦁	Run the previous query once again to test whether there was any change in how the query was performed for Multi-key Index.
+ 
+ 
+⦁	List all the indexes you’ve defined on the peaks collection.
+Code: db.peaks.getIndexes()
+ 
+⦁	To remove the index created on the first winter ascent and height.
+Code: db.peaks.dropIndex("ascents.first_winter.year_1_height_-1")
+     db.peaks.getIndexes()
+ 
+⦁	Retrieve documents matching with the keyword “Earth’s” in description field using an index.
+ 
+⦁	Retrieve documents matching with the keyword “Earth’s” in description field using an index.
+ 
+⦁	Retrieve documents matching with the keyword “Earth’s highest mountain” in description field using an index.
+Code: db.peaks.find({ $text: { $search: "\"Earth's highest mountain\"" } });
+ 
+22. Retrieve documents containing the keywords “highest mountain” but not the keyword “fourth” in description field using an index.
+ 
+Code: db.peaks.find({$text:{$search:"highest mountain -fourth"}})

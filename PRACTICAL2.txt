@@ -1,0 +1,63 @@
+
+db.employee.insertMany([
+{empid:"101",name:"eployee1",salary:50000,dept:"HR"},
+{empid:"102",name:"eployee2",salary:40000,dept:"TECH"},
+{empid:"103",name:"eployee3",salary:60000,dept:"FIN"},
+{empid:"104",name:"eployee4",salary:23000,dept:"HR"},
+{empid:"105",name:"eployee5",salary:78000,dept:"FIN"},
+{empid:"106",name:"eployee6",salary:30000,dept:"FIN"},
+{empid:"107",name:"eployee7",salary:50000,dept:"HR"},
+{empid:"108",name:"eployee8",salary:53000,dept:"TECH"},
+{empid:"109",name:"eployee9",salary:10000,dept:"TECH"},
+{empid:"110",name:"eployee10",salary:20000,dept:"HR"}
+])
+
+
+db.products.insertMany([
+{product_id:1,name:"Redmi",quantity:100,price:20000},
+{product_id:2,name:"Nokia 24",quantity:200,price:20000},
+{product_id:3,name:"Google Pixel 9",quantity:800,price:20000},
+{product_id:4,name:"Apple iPhone 14",quantity:200,price:20000},
+{product_id:5,name:"Apple iPhone 15",quantity:150,price:20000},
+{product_id:6,name:"Apple iPhone 16",quantity:1000,price:20000},
+{product_id:7,name:"samsung s23 plus",quantity:130,price:20000},
+{product_id:8,name:"samsung s24 plus",quantity:230,price:20000},
+{product_id:9,name:"samsung s23 ultra",quantity:590,price:20000},
+{product_id:10,name:"samsung s24 ultra",quantity:100,price:20000}
+])
+
+
+Q1. Write a MongoDB query to display documents in the collection employee
+
+Command:db.emp.find()
+
+Q2. Write a MongoDB query to display the fields emp_id, name, department and slary for all the
+documents in the collection employee
+
+Command: db.emp.find({},{empid:1,empname:1,dept:1,salary:1}
+
+Q3. Write a MongoDB query to display the field emp_id, name, department, but exclude the 
+field _id for all the documents in the collection employee
+
+Command: db.emp.find({},{_id:0})
+
+Q4. Write a MongoDB query to display all the employee which are in the “HR” department
+
+Command:db.emp.find({dept:”HR”})
+
+Q5. Write a MongoDB query to set salary of the employee to 50000 fir employees which are in 
+“HR” department
+
+Command: db.emp.updateMany({dept:"HR"},{$set:{salary:50000}})
+
+Q6. Write a MongoDB query to set price 150 for products whose quantity is greater than 50
+
+Command: db.products.updateMany({product_quantity:{$gt:50}},{$set:{price:150}})
+
+Q7. Write a MongoDB query to remove the record of any one product
+
+Command: db.products.deleteOne({product_id:1})
+
+Q8. Write a MongoDB query to rename product collection as Product_details
+
+Command: db.products.renameCollection("product_details")

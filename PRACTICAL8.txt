@@ -1,0 +1,101 @@
+Practical 8
+Aim: Write a Python program to demonstrate the connections to MongoDB
+Q1) Insert
+Code:
+from pymongo import MongoClient
+client = MongoClient('localhost',27017) #MongoClient('host',port)
+db = client.TYCS #client.name_of_the_database
+def insert():
+    try:
+        empID = input("Enter the ID: ")
+        empName = input("Enter the Name: ")
+        empAge = input("Enter the Age: ")
+        empCountry = input("Enter the Country: ")
+
+        db.pyrmp.insert_one(
+            {
+                "_id": empID,
+                "name": empName,
+                "age": empAge,
+                "country": empCountry,
+            }
+        )
+        print("\nData Inserted Successfully.")
+    except Exception:
+        print(str(Exception))
+    finally:
+        client.close()
+
+insert()
+
+Output:
+ 
+ 
+
+Q2) Update
+Code:
+from pymongo import MongoClient
+client = MongoClient('localhost',27017)
+db = client.TYCS
+
+def update():
+    try:
+        name = input('Enter the name of person whose data is to be updated: ')
+        age = input("Enter the updated age: ")
+        db.pyrmp.update_one(
+            {"name": name},
+            {"$set": {"age": age}}
+        )
+        print("\nData Updated Successfully")
+    except Exception:
+        print(str(Exception))
+    finally:
+        client.close()
+
+update()
+
+Output:
+ 
+ 
+Q3) Delete
+Code:
+from pymongo import MongoClient
+client = MongoClient('localhost',27017)
+db = client.TYCS
+
+def delete():
+    try:
+        id = input('Enter the ID: ')
+        db.pyrmp.delete_one(
+            {"_id:": id}
+        )
+        print('\nData Deleted Successfully')
+    except Exception:
+        print(str(Exception))
+    finally:
+        client.close()
+delete()
+
+Output:
+ 
+ 
+Q4) Display
+Code:
+from pymongo import MongoClient
+client = MongoClient('localhost',27017)
+db = client.TYCS
+def display():
+    try:
+        id = input("Enter the ID to display record: ")
+        for i in db.pyrmp.find({"empId":id}):
+            print(i)
+        print("\nRecord displayed")
+    except Exception:
+        print(str(Exception))
+    finally:
+        client.close()
+display()
+
+
+Output:
+ 
