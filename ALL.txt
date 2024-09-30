@@ -210,6 +210,11 @@ db.orders.find({$and:[{"Address.City":{$ne:"Mumbai"}},{"OrderItems.ItemName":{$n
 ---------------------------------------------------------
 practical 4
 
+Mongodb database tools needs to be installed
+They are installed in the NGTEXAM VM but the path is not set.
+To set the path, search for mongodb folder in C Drive. (If its not in Program Files it will be in C Drive)
+then go inside mongodb folder -> Tools -> 100 -> bin path copy and add in environment variables
+
 Aim: Importing the JSON data to the MongoDB
 Q1.Write a MongoDB query to display all the documents in the collection TYCSRN.
 
@@ -521,6 +526,18 @@ Code: db.peaks.find({$text:{$search:"highest mountain -fourth"}})
 ---------------------------------------------------------
 practical 7
 
+PR 7
+WITHOUT NETBEANS
+Step0: OPEN A DIFFERENT CMD AND TYPE mongod TO START THE SERVER
+Step1: OPEN COMMAND PROMPT AND GO TO YOUR JAVA PROGRAM FOLDER
+
+Step2: ENTER THE FOLLOWING COMMAND FOR COPMILING
+Syntax: javac -cp "driver path (include .jar extension)" filename.java
+eg: javac -cp "F:\College\Sem 5\BIG DATA NOSQL\mongo-java-driver-3.12.14" NOSQLPR7.java
+
+Step3: To run the file
+java -cp "F:\College\Sem 5\BIG DATA NOSQL\mongo-java-driver-3.12.14.jar" NOSQLPR7.java (instead of javac -> java)
+
 Practical 7
 Aim: Write a Java program to demonstrate the connections to MongoDB
 Q1) Insert
@@ -759,6 +776,10 @@ extension=pdo_sqlite
 Step5: Save the file. NOw go to htdocs and code
 
 
+save file in xammp -> htdocs 
+
+to run on xammp and on chrome write localhost
+
 PRACTICAL 9
 Aim : Write a php program to demonstrate the connections to MongoDB
 Q1) Insert
@@ -844,6 +865,11 @@ Q4) Delete
 
 ---------------------------------------------------------
 practical 10
+
+Mongodb database tools needs to be installed
+They are installed in the NGTEXAM VM but the path is not set.
+To set the path, search for mongodb folder in C Drive. (If its not in Program Files it will be in C Drive)
+then go inside mongodb folder -> Tools -> 100 -> bin path copy and add in environment variables
 
 PRACTICAL NO. : 10
 AIM: Perform backup and restore databases in MongoDB
