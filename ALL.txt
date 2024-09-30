@@ -209,13 +209,17 @@ db.orders.find({$and:[{"Address.City":{$ne:"Mumbai"}},{"OrderItems.ItemName":{$n
 
 ---------------------------------------------------------
 practical 4
+Aim: Importing the JSON data to the MongoDB
 
 Mongodb database tools needs to be installed
 They are installed in the NGTEXAM VM but the path is not set.
 To set the path, search for mongodb folder in C Drive. (If its not in Program Files it will be in C Drive)
 then go inside mongodb folder -> Tools -> 100 -> bin path copy and add in environment variables
 
-Aim: Importing the JSON data to the MongoDB
+first get ur restaurant in a folder then put this in cmd (not in mongosh/mongo)
+mongoimport --db dbname --collection colname  --file filepath
+now perform codes in mongo/mongosh
+
 Q1.Write a MongoDB query to display all the documents in the collection TYCSRN.
 
 Code: db.orders.find().pretty()
@@ -653,7 +657,7 @@ Output:
 ---------------------------------------------------------
 practical 8
 
-Practical 8
+Practical 8 (perform in idle)
 Aim: Write a Python program to demonstrate the connections to MongoDB
 Q1) Insert
 Code:
