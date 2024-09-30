@@ -524,9 +524,10 @@ Code: db.peaks.find({$text:{$search:"highest mountain -fourth"}})
 
 
 ---------------------------------------------------------
-practical 7
+Practical 7
+Aim: Write a Java program to demonstrate the connections to MongoDB
 
-PR 7
+steps-
 WITHOUT NETBEANS
 Step0: OPEN A DIFFERENT CMD AND TYPE mongod TO START THE SERVER
 Step1: OPEN COMMAND PROMPT AND GO TO YOUR JAVA PROGRAM FOLDER
@@ -537,9 +538,12 @@ eg: javac -cp "F:\College\Sem 5\BIG DATA NOSQL\mongo-java-driver-3.12.14" NOSQLP
 
 Step3: To run the file
 java -cp "F:\College\Sem 5\BIG DATA NOSQL\mongo-java-driver-3.12.14.jar" NOSQLPR7.java (instead of javac -> java)
+OR
+first go to location where jar file and java file is located using cd then put these commands
+java -cp "mongo-java-driver-3.12.14.jar" NOSQLPR7.java 
+javac -cp "mongo-java-driver-3.12.14.jar" NOSQLPR7.java
 
-Practical 7
-Aim: Write a Java program to demonstrate the connections to MongoDB
+
 Q1) Insert
 Code:
 package nosqlpr7;
@@ -778,7 +782,8 @@ Step5: Save the file. NOw go to htdocs and code
 
 save file in xammp -> htdocs 
 
-to run on xammp and on chrome write localhost
+to run : Turn on "start" APACHE feature on  xammp and 
+on chrome write localhost:/filename
 
 PRACTICAL 9
 Aim : Write a php program to demonstrate the connections to MongoDB
